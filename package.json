@@ -1,12 +1,14 @@
 {
   "name": "correlation-id-ts",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Add correlation id to your functions context",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config jestconfig.json"
+    "test": "jest --config jestconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "engines": {
     "node": ">=12.17.0"
@@ -27,14 +29,12 @@
     "debug"
   ],
   "author": "4thwithme",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "node": "^16.6.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.9.1",
     "@types/uuid": "^8.3.1",
     "jest": "^27.1.1",
     "ts-jest": "^27.0.5",
