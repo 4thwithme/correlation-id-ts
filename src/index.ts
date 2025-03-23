@@ -1,5 +1,5 @@
-import { AsyncLocalStorage } from "async_hooks";
-import { v4 } from "uuid";
+import { AsyncLocalStorage } from "node:async_hooks";
+import { randomUUID } from "node:crypto";
 
 const asyncLocalStorage: AsyncLocalStorage<{
   correlationId: string;
@@ -53,7 +53,7 @@ const configureArgs = <ConfigureArgsType>function (func) {
       throw Error("Missing fn parameter");
     }
 
-    const id: string = correlationId ?? v4();
+    const id: string = correlationId ?? randomUUID();
     return func({ correlationId: id, fn });
   };
 };
@@ -68,3 +68,11 @@ export const correlator = {
   bindId: configureArgs(bindIdFn),
   getId,
 };
+
+export function runWithNewCorrelationId(runFunction: (id: string) => unknown) {
+  const id = correlator.getId() ?? randomUUID();
+  correlator.withId({
+    correlationId: id,
+    fn: () => runFunction(id),
+  });
+}

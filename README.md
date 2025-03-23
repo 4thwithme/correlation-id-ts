@@ -46,7 +46,3 @@ const boundFn2 = correlator.bindId({
 });
 boundFn2("John"); // meow-meow, John, `bark`
 ```
-
-## License
-
-MIT
